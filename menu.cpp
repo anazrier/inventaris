@@ -68,7 +68,7 @@ void menuutama() {
         cout << "==========================================" << endl;
         cout << "1. Kelola Data Barang (CRUD)" << endl;
         cout << "2. Catat Penjualan (Kasir)" << endl;
-        cout << "3. Search Barang" << endl;
+        cout << "3. Cari Barang" << endl;
         cout << "4. Tampilkan Barang Terlaris" << endl;
         cout << "5. Total Nilai Inventori" << endl;
         cout << "0. Keluar dan Simpan" << endl;
@@ -85,7 +85,7 @@ void menuutama() {
                 tekanenter();
                 break;
             case 3 :
-                // cariBarang(); // Memanggil fungsi cari yang dibuat di awal
+                cariBarang(); 
                 tekanenter();
                 break;
             case 4 :

@@ -260,6 +260,7 @@ void totalinventory() {
 
     double total_inventori = 0;
     cout << "\n--- Perhitungan Total Inventori ---" << endl;
+    cout << fixed << setprecision(0);
 
     for (int i = 0; i < jumlahBarang; i++) {
         double subTotal = item.harga[i] * item.stok[i];
@@ -271,4 +272,37 @@ void totalinventory() {
     cout << "-----------------------------------" << endl;
     cout << "Total Nilai Inventori: Rp" << total_inventori << endl;
     cout << "-----------------------------------" << endl;
+}
+
+void cariBarang() {
+    bersihkanlayar();
+    string kode;
+
+    cout << endl << "=======================================" << endl;
+    cout << "            CARI BARANG                " << endl;
+    cout << "=======================================" << endl;
+    cout << " Masukkan kode barang: ";
+    cin >> kode;
+    cout << "---------------------------------------" << endl;
+
+    bool ditemukan = false;
+
+    for (int i = 0; i < jumlahBarang; i++) {
+        if (item.kode[i] == kode) {
+            ditemukan = true;
+
+            cout << " [INFO] Barang ditemukan!" << endl;
+            cout << " Kode  : " << item.kode[i] << endl;
+            cout << " Nama  : " << item.nama[i] << endl;
+            cout << " Harga : Rp " << item.harga[i] << endl;
+            cout << " Stok  : " << item.stok[i] << endl;
+            cout << "---------------------------------------" << endl;
+
+            break;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << " [!] Barang dengan kode '" << kode << "' tidak ditemukan." << endl;
+    }
 }
