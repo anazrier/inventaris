@@ -195,4 +195,93 @@ void hapusBarang() {
     }
 }
 
+// penjuaalan
+void catatPenjualan() {
+    bersihkanlayar();
+    string kode;
+    int jumlahBeli;
 
+    cout << endl << "=======================================" << endl;
+    cout << "            CATAT PENJUALAN            " << endl;
+    cout << "=======================================" << endl;
+    cout << " Masukkan kode barang yang dibeli: ";
+    cin >> kode;
+    cout << "---------------------------------------" << endl;
+
+    bool found = false;
+    for (int i = 0; i < jumlahBarang; i++) {
+        if (item.kode[i] == kode) {
+            found = true;
+            
+            cout << " [INFO] Nama Barang : " << item.nama[i] << endl;
+            cout << " [INFO] Harga       : Rp " << item.harga[i] << endl;
+            cout << " [INFO] Stok sisa   : " << item.stok[i] << endl;
+            cout << "---------------------------------------" << endl;
+            
+            cout << " Masukkan jumlah beli: ";
+            cin >> jumlahBeli;
+
+            if (jumlahBeli > item.stok[i]) {
+                cout << endl << " [!] TRANSAKSI GAGAL: Stok tidak mencukupi!" << endl;
+            } else if (jumlahBeli <= 0) {
+                cout << endl << " [!] TRANSAKSI GAGAL: Jumlah input tidak valid!" << endl;
+            } else {
+                item.stok[i] -= jumlahBeli;     
+                item.terjual[i] += jumlahBeli;  
+                saveData(); 
+                
+                double totalHarga = item.harga[i] * jumlahBeli;
+                cout << endl << " [BERHASIL] Penjualan berhasil dicatat!" << endl;
+                cout << " > Total Bayar : Rp " << totalHarga << endl;
+                cout << " > Sisa Stok   : " << item.stok[i] << endl;
+            }
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << endl << " [!] Barang dengan kode '" << kode << "' tidak ditemukan." << endl;
+    }
+}
+
+// barang terlaris
+void terlaris() {
+    if (jumlahBarang == 0) {
+        cout << " [!] Data inventaris masih kosong!" << endl;
+        return;
+    }
+
+    int maxIdx = 0;
+    for (int i = 1; i < jumlahBarang; i++) {
+        if (item.terjual[i] > item.terjual[maxIdx]) {
+            maxIdx = i;
+        }
+    }
+
+    cout << "\n--- Barang Terlaris ---" << endl;
+    cout << "Nama Barang: " << item.nama[maxIdx] << endl;
+    cout << "Jumlah Terjual: " << item.terjual[maxIdx] << endl;
+    cout << "-----------------------" << endl;
+}
+
+// total harga di inventory
+void totalinventory() {
+    if (jumlahBarang == 0) {
+        cout << " [!] Data inventaris masih kosong!" << endl;
+        return;
+    }
+
+    double total_inventori = 0;
+    cout << "\n--- Perhitungan Total Inventori ---" << endl;
+
+    for (int i = 0; i < jumlahBarang; i++) {
+        double subTotal = item.harga[i] * item.stok[i];
+        total_inventori += subTotal;
+
+        cout << item.nama[i] << ": Rp" << item.harga[i] << " x " << item.stok[i] << " = Rp" << subTotal << endl;
+    }
+
+    cout << "-----------------------------------" << endl;
+    cout << "Total Nilai Inventori: Rp" << total_inventori << endl;
+    cout << "-----------------------------------" << endl;
+}

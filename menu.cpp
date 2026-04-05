@@ -1,13 +1,17 @@
 #include <iostream>
+#include <cstdlib> // Untuk fungsi system("cls")
 #include "menu.h"
 #include "inventory.h"
 
+using namespace std;
+
 void bersihkanlayar() {
-    system("cls");
+    // Gunakan "cls" untuk Windows, atau "clear" jika menggunakan Linux/Mac
+    system("cls"); 
 }
 
 void tekanenter() {
-    cout << "Tekan enter untuk kembali....";
+    cout << "\nTekan enter untuk kembali....";
     cin.ignore();
     cin.get();
     bersihkanlayar();
@@ -31,27 +35,27 @@ void menuCRUD() {
         
         switch(pilihan) {
             case 1 :
-            tambahBarang();
-            tekanenter();
-            break;
+                tambahBarang();
+                tekanenter();
+                break;
             case 2 :
-            tampilkanBarang();
-            tekanenter();
-            break;
+                tampilkanBarang();
+                tekanenter();
+                break;
             case 3 : 
-            editBarang();
-            tekanenter();
-            break;
+                editBarang();
+                tekanenter();
+                break;
             case 4 :
-            hapusBarang();
-            tekanenter();
-            break;
+                hapusBarang();
+                tekanenter();
+                break;
             case 0 : 
-            break;
+                break;
             default :
-            cout << endl << "Pilihan Tidak Valid [!]" << endl;
-            tekanenter();
-            break;
+                cout << endl << "Pilihan Tidak Valid [!]" << endl;
+                tekanenter();
+                break;
         }
     } while (pilihan != 0); 
 }
@@ -64,12 +68,13 @@ void menuutama() {
         cout << "        SISTEM MANAJEMEN TDR3000          " << endl;
         cout << "==========================================" << endl;
         cout << "1. Kelola Data Barang (CRUD)" << endl;
-        cout << "2. Search Barang" << endl;
-        cout << "3. Tampilkan Barang Terlaris" << endl;
-        cout << "4. Total Inventori" << endl;
+        cout << "2. Catat Penjualan (Kasir)" << endl;
+        cout << "3. Search Barang" << endl;
+        cout << "4. Tampilkan Barang Terlaris" << endl;
+        cout << "5. Total Nilai Inventori" << endl;
         cout << "0. Keluar dan Simpan" << endl;
         cout << "==========================================" << endl;
-        cout << "Pilih Menu [0 - 4]: ";
+        cout << "Pilih Menu [0 - 5]: ";
         cin >> pilihan;
 
         switch (pilihan) {
@@ -77,21 +82,27 @@ void menuutama() {
                 menuCRUD();
                 break;
             case 2 :
-                //search barang 
+                catatPenjualan();
+                tekanenter();
                 break;
             case 3 :
-                //tampilkanbarang terlaris
+                // cariBarang(); // Memanggil fungsi cari yang dibuat di awal
+                tekanenter();
                 break;
-            case 4 : 
-                //total inventori
+            case 4 :
+                terlaris();
+                tekanenter();
+                break;
+            case 5 : 
+                totalinventory();
+                tekanenter();
                 break;
             case 0 :
                 bersihkanlayar();
-                saveData();
-                cout << endl << "Menyimpan data.....Program selesai." << endl;
+                saveData(); // Pastikan data tersimpan sebelum benar-benar keluar
+                cout << endl << "Menyimpan data..... Program selesai." << endl;
                 break;
             default :
-                bersihkanlayar();
                 cout << endl << "Pilihan Tidak Valid [!]. Silahkan coba lagi.";
                 tekanenter();
                 break; 
