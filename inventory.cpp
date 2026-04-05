@@ -36,13 +36,13 @@ void saveData() {
     if (file.is_open()) {
         file << jumlahBarang << endl;
         for (int i = 0; i < jumlahBarang; i++) {
-            file << item.kode[i];
-            file << item.nama[i];
-            file << item.harga[i];
-            file << item.stok[i];
+            file << item.kode[i] << endl;
+            file << item.nama[i] << endl;
+            file << item.harga[i] << endl;
+            file << item.stok[i] << endl;
         }
         file.close();
-        cout << endl << "[INFO] Data Berhasil Disimpan. " << endl;
+        cout << "[INFO] Data Berhasil Disimpan. " << endl;
     }
 }
 
@@ -118,8 +118,16 @@ void editBarang() {
     for (int i = 0; i < jumlahBarang; i++) {
         if (item.kode[i] == kode) {
             found = true;
-            cout << "[~] Nama baru  : ";
-            cin >> item.nama[i];
+            
+            cout << " [INFO] Nama Lama  : " << item.nama[i] << endl;
+            cout << " [INFO] Harga Lama : Rp " << item.harga[i] << endl;
+            cout << " [INFO] Stok Lama  : " << item.stok[i] << endl;
+            cout << "---------------------------------------" << endl;
+            
+            cin.ignore(); 
+            
+            cout << " [~] Nama baru  : ";
+            getline(cin, item.nama[i]); 
             
             cout << " [~] Harga baru : Rp ";
             cin >> item.harga[i];
@@ -153,15 +161,32 @@ void hapusBarang() {
     for (int i = 0; i < jumlahBarang; i++) {
         if (item.kode[i] == kode) {
             found = true;
-            for (int j = i; j < jumlahBarang - 1; j++) {
-                item.kode[j] = item.kode[j + 1];
-                item.nama[j] = item.nama[j + 1];
-                item.harga[j] = item.harga[j + 1];
-                item.stok[j] = item.stok[j + 1];
+            
+            cout << " [INFO] Data Barang yang akan dihapus:" << endl;
+            cout << " Nama  : " << item.nama[i] << endl;
+            cout << " Harga : Rp " << item.harga[i] << endl;
+            cout << " Stok  : " << item.stok[i] << endl;
+            cout << "---------------------------------------" << endl;
+            
+            char konfirmasi;
+            cout << " Yakin akan menghapus barang ini? (y/n): ";
+            cin >> konfirmasi;
+            
+            if (konfirmasi == 'y' || konfirmasi == 'Y') {
+                for (int j = i; j < jumlahBarang - 1; j++) {
+                    item.kode[j] = item.kode[j + 1];
+                    item.nama[j] = item.nama[j + 1];
+                    item.harga[j] = item.harga[j + 1];
+                    item.stok[j] = item.stok[j + 1];
+                }
+                jumlahBarang--;
+                saveData(); 
+                cout << endl << " [BERHASIL] Data barang berhasil dihapus!" << endl;
+            } else {
+                cout << endl << " [BATAL] Penghapusan data barang dibatalkan." << endl;
             }
-            jumlahBarang--;
-            saveData();
-            break;
+            
+            break; 
         }
     }
     
