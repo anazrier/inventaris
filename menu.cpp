@@ -1,12 +1,11 @@
 #include <iostream>
-#include <cstdlib> // Untuk fungsi system("cls")
+#include <cstdlib> 
 #include "menu.h"
 #include "inventory.h"
 
 using namespace std;
 
 void bersihkanlayar() {
-    // Gunakan "cls" untuk Windows, atau "clear" jika menggunakan Linux/Mac
     system("cls"); 
 }
 
@@ -99,7 +98,7 @@ void menuutama() {
                 break;
             case 0 :
                 bersihkanlayar();
-                saveData(); // Pastikan data tersimpan sebelum benar-benar keluar
+                saveData();
                 cout << endl << "Menyimpan data..... Program selesai." << endl;
                 break;
             default :

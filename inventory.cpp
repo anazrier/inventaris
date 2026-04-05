@@ -9,7 +9,6 @@ using namespace std;
 DataBarang item;
 int jumlahBarang = 0;
 
-// load data
 void loadData() {
     ifstream file("data_inventaris.txt");
     if (file.is_open()) {
@@ -30,7 +29,6 @@ void loadData() {
     }
 }
 
-// save data
 void saveData() {
     ofstream file("data_inventaris.txt");
     if (file.is_open()) {
@@ -45,9 +43,6 @@ void saveData() {
         cout << "[INFO] Data Berhasil Disimpan. " << endl;
     }
 }
-
-//crud
-//add item
 
 void tambahBarang() {
     bersihkanlayar();
@@ -76,7 +71,6 @@ void tambahBarang() {
     }
 }
 
-//show item
 void tampilkanBarang() {
     bersihkanlayar();
     cout << endl << "===============================================================" << endl;
@@ -103,7 +97,6 @@ void tampilkanBarang() {
     }
 }
 
-//edit item
 void editBarang() {
     bersihkanlayar();
     string kode;
@@ -136,7 +129,6 @@ void editBarang() {
             cin >> item.stok[i];
             
             saveData();
-            cout << endl << " [BERHASIL] Data barang berhasil diperbarui!" << endl;
             break;
         }
     }
@@ -146,7 +138,6 @@ void editBarang() {
     }
 }
 
-//delete item
 void hapusBarang() {
     bersihkanlayar();
     string kode;
@@ -181,7 +172,6 @@ void hapusBarang() {
                 }
                 jumlahBarang--;
                 saveData(); 
-                cout << endl << " [BERHASIL] Data barang berhasil dihapus!" << endl;
             } else {
                 cout << endl << " [BATAL] Penghapusan data barang dibatalkan." << endl;
             }
@@ -195,7 +185,6 @@ void hapusBarang() {
     }
 }
 
-// penjuaalan
 void catatPenjualan() {
     bersihkanlayar();
     string kode;
@@ -218,13 +207,13 @@ void catatPenjualan() {
             cout << " [INFO] Stok sisa   : " << item.stok[i] << endl;
             cout << "---------------------------------------" << endl;
             
-            cout << " Masukkan jumlah beli: ";
+            cout << "Masukkan jumlah beli: ";
             cin >> jumlahBeli;
 
             if (jumlahBeli > item.stok[i]) {
-                cout << endl << " [!] TRANSAKSI GAGAL: Stok tidak mencukupi!" << endl;
+                cout << endl << "[!] TRANSAKSI GAGAL: Stok tidak mencukupi!" << endl;
             } else if (jumlahBeli <= 0) {
-                cout << endl << " [!] TRANSAKSI GAGAL: Jumlah input tidak valid!" << endl;
+                cout << endl << "[!] TRANSAKSI GAGAL: Jumlah input tidak valid!" << endl;
             } else {
                 item.stok[i] -= jumlahBeli;     
                 item.terjual[i] += jumlahBeli;  
@@ -244,7 +233,6 @@ void catatPenjualan() {
     }
 }
 
-// barang terlaris
 void terlaris() {
     if (jumlahBarang == 0) {
         cout << " [!] Data inventaris masih kosong!" << endl;
@@ -264,7 +252,6 @@ void terlaris() {
     cout << "-----------------------" << endl;
 }
 
-// total harga di inventory
 void totalinventory() {
     if (jumlahBarang == 0) {
         cout << " [!] Data inventaris masih kosong!" << endl;
