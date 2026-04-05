@@ -11,6 +11,7 @@ struct DataBarang {
     string nama[MAX_DATA];
     double harga[MAX_DATA];
     int stok[MAX_DATA];
+    int terjual[MAX_DATA];
 };
 
 
@@ -21,5 +22,7 @@ void tambahBarang();
 void tampilkanBarang();
 void editBarang();
 void hapusBarang();
+void terlaris(); 
+void totalinventory();
 
 #endif

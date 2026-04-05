@@ -12,7 +12,9 @@ int main() {
         cout << "1. Tambah Barang (Create)" << endl;
         cout << "2. Tampilkan Barang (Read)" << endl;
         cout << "3. Edit Barang (Update)" << endl;
-        cout << "4. Hapus Barang (Delete)" << endl;
+        cout << "4. Barang Terlaris " << endl;
+        cout << "5. Hitung Total Inventori " << endl;
+        cout << "6. Hapus Barang (Delete)" << endl;
         cout << "0. Keluar" << endl;
         cout << "Pilih menu: ";
         cin >> pilihan;
@@ -21,7 +23,9 @@ int main() {
             case 1: tambahBarang(); break;
             case 2: tampilkanBarang(); break;
             case 3: editBarang(); break;
-            case 4: hapusBarang(); break;
+            case 4: terlaris(); break;
+            case 5: totalinventory(); break;
+            case 6: hapusBarang(); break;
             case 0: 
                 saveData(); 
                 cout << "exit"; 
