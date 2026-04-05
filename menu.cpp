@@ -1,0 +1,100 @@
+#include <iostream>
+#include "menu.h"
+#include "inventory.h"
+
+void bersihkanlayar() {
+    system("cls");
+}
+
+void tekanenter() {
+    cout << "Tekan enter untuk kembali....";
+    cin.ignore();
+    cin.get();
+    bersihkanlayar();
+}
+
+void menuCRUD() {
+    int pilihan;
+    do {
+        bersihkanlayar();
+        cout << "==========================================" << endl;
+        cout << "            SUB MENU KELOLA DATA          " << endl;
+        cout << "==========================================" << endl;
+        cout << "1. Tambah Barang (Create)" << endl;
+        cout << "2. Tampilkan Barang (Read)" << endl;
+        cout << "3. Edit Barang (Update)" << endl;
+        cout << "4. Hapus Barang (Delete)" << endl;
+        cout << "0. Kembali Ke Menu Utama" << endl;
+        cout << "==========================================" << endl;
+        cout << "Masukkan Pilihan [0 - 4]: ";
+        cin >> pilihan;
+        
+        switch(pilihan) {
+            case 1 :
+            tambahBarang();
+            tekanenter();
+            break;
+            case 2 :
+            tampilkanBarang();
+            tekanenter();
+            break;
+            case 3 : 
+            editBarang();
+            tekanenter();
+            break;
+            case 4 :
+            hapusBarang();
+            tekanenter();
+            break;
+            case 0 : 
+            break;
+            default :
+            cout << endl << "Pilihan Tidak Valid [!]" << endl;
+            tekanenter();
+            break;
+        }
+    } while (pilihan != 0); 
+}
+
+void menuutama() {
+    int pilihan;
+    do {
+        bersihkanlayar();
+        cout << "==========================================" << endl;
+        cout << "        SISTEM MANAJEMEN TDR3000          " << endl;
+        cout << "==========================================" << endl;
+        cout << "1. Kelola Data Barang (CRUD)" << endl;
+        cout << "2. Search Barang" << endl;
+        cout << "3. Tampilkan Barang Terlaris" << endl;
+        cout << "4. Total Inventori" << endl;
+        cout << "0. Keluar dan Simpan" << endl;
+        cout << "==========================================" << endl;
+        cout << "Pilih Menu [0 - 4]: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1 :
+                menuCRUD();
+                break;
+            case 2 :
+                //search barang 
+                break;
+            case 3 :
+                //tampilkanbarang terlaris
+                break;
+            case 4 : 
+                //total inventori
+                break;
+            case 0 :
+                bersihkanlayar();
+                saveData();
+                cout << endl << "Menyimpan data.....Program selesai." << endl;
+                break;
+            default :
+                bersihkanlayar();
+                cout << endl << "Pilihan Tidak Valid [!]. Silahkan coba lagi.";
+                tekanenter();
+                break; 
+        }
+    } while (pilihan != 0);
+}

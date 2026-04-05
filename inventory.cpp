@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include "inventory.h"
+#include "menu.h"
+#include <string>
 
 using namespace std;
 DataBarang item;
@@ -22,9 +24,9 @@ void loadData() {
             file.ignore(); 
         }
         file.close();
-        cout << "berhasil";
+        cout << "[INFO] Data Inventaris Berhasil Dimuat." << endl;
     } else {
-        cout << "kosong";
+        cout << "[INFO] Data Inventaris Kosong atau belum dibuat." << endl;
     }
 }
 
@@ -32,7 +34,7 @@ void loadData() {
 void saveData() {
     ofstream file("data_inventaris.txt");
     if (file.is_open()) {
-        file << jumlahBarang;
+        file << jumlahBarang << endl;
         for (int i = 0; i < jumlahBarang; i++) {
             file << item.kode[i];
             file << item.nama[i];
@@ -40,7 +42,7 @@ void saveData() {
             file << item.stok[i];
         }
         file.close();
-        cout << "berhasil";
+        cout << endl << "[INFO] Data Berhasil Disimpan. " << endl;
     }
 }
 
@@ -48,80 +50,104 @@ void saveData() {
 //add item
 
 void tambahBarang() {
+    bersihkanlayar();
+    cout << "==========================================" << endl;
+    cout << "             TAMBAH BARANG BARU           " << endl;
+    cout << "==========================================" << endl;
+    
     if (jumlahBarang < MAX_DATA) {
-        cout << "Masukkan kode barang: ";
+        cout << "[+] Masukkan Kode Barang : ";
         cin >> item.kode[jumlahBarang];
         
-        cout << "Masukkan nama barang: ";
-        cin >> item.nama[jumlahBarang];
+        cout << "[+] Masukkan Nama Barang : ";
+        getline(cin >> ws, item.nama[jumlahBarang]);
         
-        cout << "Masukkan harga barang: ";
+        cout << "[+] Masukkan Harga Barang: ";
         cin >> item.harga[jumlahBarang];
         
-        cout << "Masukkan stok barang: ";
+        cout << "[+] Masukkan Stok Barang : ";
         cin >> item.stok[jumlahBarang];
+        cout << "==========================================" << endl;
         
         jumlahBarang++;
         saveData();
-        cout << "berhasil" << endl;
     } else {
-        cout << "penuh" << endl;
+        cout << "[!] Kapasitas Inventaris Sudah Penuh." << endl;
     }
 }
 
 //show item
 void tampilkanBarang() {
+    bersihkanlayar();
+    cout << endl << "===============================================================" << endl;
+    cout << "                        DAFTAR BARANG                          " << endl;
+    cout << "===============================================================" << endl;
+
     if (jumlahBarang > 0) {
-        cout << left << setw(10) << "Kode" 
-             << left << setw(20) << "Nama" 
-             << left << setw(10) << "Harga" 
-             << left << setw(10) << "Stok" << endl;
+        cout << "| " << left << setw(10) << "Kode" 
+            << "| " << left << setw(20) << "Nama Barang" 
+            << "| " << left << setw(12) << "Harga" 
+            << "| " << left << setw(8) << "Stok" << " |" << endl;
+        cout << "---------------------------------------------------------------" << endl;
+        
         for (int i = 0; i < jumlahBarang; i++) {
-            cout << left << setw(10) << item.kode[i] 
-                 << left << setw(20) << item.nama[i] 
-                 << left << setw(10) << item.harga[i] 
-                 << left << setw(10) << item.stok[i] << endl;
+            cout << "| " << left << setw(10) << item.kode[i] 
+                << "| " << left << setw(20) << item.nama[i] 
+                << "| Rp " << left << setw(9) << item.harga[i] 
+                << "| " << left << setw(8) << item.stok[i] << " |" << endl;
         }
+        cout << "===============================================================" << endl;
     } else {
-        cout << "ksoong" << endl;
+        cout << " [!] Tidak ada data barang untuk ditampilkan." << endl;
+        cout << "===============================================================\n";
     }
 }
 
 //edit item
 void editBarang() {
+    bersihkanlayar();
     string kode;
-    cout << "Masukkan kode barang yang ingin diedit: ";
+    cout << endl << "=======================================" << endl;
+    cout << "              EDIT BARANG              " << endl;
+    cout << "=======================================" << endl;
+    cout << " Masukkan kode barang yang akan diedit: ";
     cin >> kode;
+    cout << "---------------------------------------" << endl;
     
     bool found = false;
     for (int i = 0; i < jumlahBarang; i++) {
         if (item.kode[i] == kode) {
             found = true;
-            cout << "Masukkan nama baru: ";
+            cout << "[~] Nama baru  : ";
             cin >> item.nama[i];
             
-            cout << "Masukkan harga baru: ";
+            cout << " [~] Harga baru : Rp ";
             cin >> item.harga[i];
             
-            cout << "Masukkan stok baru: ";
+            cout << " [~] Stok baru  : ";
             cin >> item.stok[i];
             
             saveData();
-            cout << "berhasil" << endl;
+            cout << endl << " [BERHASIL] Data barang berhasil diperbarui!" << endl;
             break;
         }
     }
     
     if (!found) {
-        cout << "tidak ditemukan" << endl;
+        cout << endl << " [!] Barang dengan kode '" << kode << "' tidak ditemukan." << endl;
     }
 }
 
 //delete item
 void hapusBarang() {
+    bersihkanlayar();
     string kode;
-    cout << "Masukkan kode barang yang ingin dihapus: ";
+    cout << endl << "=======================================" << endl;
+    cout << "              HAPUS BARANG             " << endl;
+    cout << "=======================================" << endl;
+    cout << " Masukkan kode barang yang akan dihapus: ";
     cin >> kode;
+    cout << "---------------------------------------" << endl;
     
     bool found = false;
     for (int i = 0; i < jumlahBarang; i++) {
@@ -135,13 +161,12 @@ void hapusBarang() {
             }
             jumlahBarang--;
             saveData();
-            cout << "berhasil" << endl;
             break;
         }
     }
     
     if (!found) {
-        cout << "tidak ditemukan" << endl;
+        cout << endl << " [!] Barang dengan kode '" << kode << "' tidak ditemukan." << endl;
     }
 }
 
